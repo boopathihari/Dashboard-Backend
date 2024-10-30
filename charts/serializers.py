@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from .models import POCData, RequestStatus, EnterpriseEngagement, ConnectionRequest, POC, FunnelData
+from .models import POCData, RequestStatus, EnterpriseEngagement, ConnectionRequest, POC, FunnelData,SessionData
+
 
 class POCDataSerializer(serializers.ModelSerializer):
     class Meta:
@@ -12,11 +13,17 @@ class RequestStatusSerializer(serializers.ModelSerializer):
         fields = ['status_type', 'count']
 
 
+        
+class UserStatusSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RequestStatus
+        fields = ['status_type', 'count']
+
+
 class EnterpriseEngagementSerializer(serializers.ModelSerializer):
     class Meta:
         model = EnterpriseEngagement
         fields = ['industry', 'engagement']
-
 
 
 class ConnectionRequestSerializer(serializers.ModelSerializer):
@@ -31,8 +38,13 @@ class POCSerializer(serializers.ModelSerializer):
         fields = ['status', 'count']
 
 
-
 class FunnelDataSerializer(serializers.ModelSerializer):
     class Meta:
         model = FunnelData
         fields = ['request_received', 'poc_accepted', 'poc_delivered']
+
+
+class SessionDataSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SessionData
+        fields = '__all__'

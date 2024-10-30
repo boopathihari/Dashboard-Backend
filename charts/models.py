@@ -10,7 +10,15 @@ class POCData(models.Model):
         return self.poc_name
 
 class RequestStatus(models.Model):
-    status_type = models.CharField(max_length=50)  # e.g., 'Open', 'In Progress', 'Closed'
+    status_type = models.CharField(max_length=50)  
+    count = models.IntegerField()
+
+    def __str__(self):
+        return self.status_type
+
+
+class UserStatus(models.Model):
+    status_type = models.CharField(max_length=50)  
     count = models.IntegerField()
 
     def __str__(self):
@@ -48,3 +56,19 @@ class FunnelData(models.Model):
 
     def __str__(self):
         return f"FunnelData({self.request_received}, {self.poc_accepted}, {self.poc_delivered})"
+
+class SessionData(models.Model):
+    SESSION_QUARTERS = [
+        ('Q1', 'Q1'),
+        ('Q2', 'Q2'),
+        ('Q3', 'Q3'),
+        ('Q4', 'Q4'),
+    ]
+    USER_TYPES = [
+        ('Startup', 'Startup'),
+        ('Enterprise', 'Enterprise'),
+    ]
+
+    quarter = models.CharField(max_length=2, choices=SESSION_QUARTERS)
+    user_type = models.CharField(max_length=10, choices=USER_TYPES)
+    session_duration = models.FloatField()  
